@@ -17,7 +17,6 @@ public class AndroidColladaLoader extends Activity implements GLSurfaceView.Rend
     private AssetManager assetMgr;
     private ColladaHandler handler;
     private ArrayList<ColladaObject> objectArray;
-    private float angle = 0.0f;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,13 +52,11 @@ public class AndroidColladaLoader extends Activity implements GLSurfaceView.Rend
 		
 		gl.glMatrixMode(GL10.GL_MODELVIEW);
 		gl.glLoadIdentity();
-		GLU.gluLookAt(gl, 5, 0, 3, 0, 0, 0, 0, 0, 1);
-	    gl.glRotatef(angle, 0, 0, 1);
-	    angle += 1;
-	    
+		
 	    if (objectArray!=null && objectArray.size()>0){
-	    	for (int i=0; i<objectArray.size(); i++)
+	    	for (int i=0; i<objectArray.size(); i++){
 	    		objectArray.get(i).draw(gl);
+	    	}
 	    }
 	  
 	}
@@ -88,7 +85,6 @@ public class AndroidColladaLoader extends Activity implements GLSurfaceView.Rend
         try {
 			objectArray = handler.parseFile(assetMgr.open("model.dae"));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
